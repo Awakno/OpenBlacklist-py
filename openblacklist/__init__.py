@@ -1,4 +1,4 @@
-from .main import OpenBlacklistClient
-from .method.Type import UserBlacklist
+from .main import BlacklistClient
+from .method.Type import BlacklistUser
 
-__all__ = ['OpenBlacklistClient','UserBlacklist']
+__all__ = ['BlacklistClient','BlacklistUser']
