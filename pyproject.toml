@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "openblacklist"
-version = "1.0.0"
+version = "1.0.1"
 description = "Official client for openblacklist API"
 homepage = "https://openbl.clarty.org/"
 authors = [
@@ -13,6 +13,3 @@ httpx = "^3.9.5"
 pydantic = "^2.8.2"
 fastapi = "^0.115.5"
 uvicorn = "0.32.1"
-
-
-
