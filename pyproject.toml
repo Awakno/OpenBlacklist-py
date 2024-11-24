@@ -6,7 +6,7 @@ homepage = "https://openbl.clarty.org/"
 authors = [
   "Awakno <contact@awakno.fr>"
 ]
-
+long_description = "Official package for openblacklist API"
 [tool.poetry.dependencies]
 python = "^3.8.1"
 httpx = "^3.9.5"
