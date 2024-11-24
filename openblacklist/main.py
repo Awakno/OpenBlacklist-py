@@ -13,6 +13,7 @@ class OpenBlacklistClient:
             api_key (str): The API key for authentication.
             url (str, optional): The base URL for the API. Defaults to 'https://openbl.clarty.org/api/v1/'.
             webhook_url (Optional[str], optional): The URL for the webhook endpoint. Defaults to None.
+            webhook_pass (str): The password for the webhook endpoint.
         """
         self.url = url
         self.api_key = api_key
