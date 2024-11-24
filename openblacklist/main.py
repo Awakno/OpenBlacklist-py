@@ -4,7 +4,7 @@ import uvicorn
 from typing import Optional, Dict, List, Callable
 from .method.Model import UserBlacklist, User, Reason, UserBlacklistWebhook
 
-class OpenBlacklistClient:
+class BlacklistClient:
     def __init__(self, api_key: str=None, url='https://openbl.clarty.org/api/v1/', webhook_url: Optional[str] = None,webhook_pass: str=None):
         """
         Initializes the OpenBlacklistClient.
@@ -70,7 +70,7 @@ class OpenBlacklistClient:
 
         return webhook_event
 
-    def _event(self, event_name: str):
+    def _event(self, event_name: str): 
         """
         Decorator to register an event handler.
 
