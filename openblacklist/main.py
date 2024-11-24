@@ -1,7 +1,7 @@
 from fastapi import Body, FastAPI
 import uvicorn
 from typing import Optional, Dict, List, Callable
-import httpx
+import aiohttp
 from method.Model import UserBlacklist, User, Reason, UserBlacklistWebhook
 
 class OpenBlacklistClient:
@@ -18,13 +18,14 @@ class OpenBlacklistClient:
 
     async def check_user(self, user_id: int) -> UserBlacklist:
         """Vérifie si un utilisateur est blacklisté."""
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                f"{self.url}/user/{user_id}",
-                headers={"Authorization": f"Bearer {self.api_key}"}
-            )
-            response.raise_for_status()
-            return UserBlacklist(**response.json())
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+            f"{self.url}/user/{user_id}",
+            headers={"Authorization": f"Bearer {self.api_key}"}
+            ) as response:
+                response.raise_for_status()
+                data = await response.json()
+        return UserBlacklist(**data)
 
     async def handle_webhook(self, data: dict):
         """Gère les données reçues via webhook et déclenche des événements spécifiques."""
