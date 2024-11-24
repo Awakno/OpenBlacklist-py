@@ -70,7 +70,7 @@ class BlacklistClient:
 
         return webhook_event
 
-    def _event(self, event_name: str): 
+    def event(self, event_name: str): 
         """
         Decorator to register an event handler.
 
