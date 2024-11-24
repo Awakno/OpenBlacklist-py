@@ -1,8 +1,7 @@
-````markdown
 ```sh
 pip install openblacklist
 ```
-`````
+
 # OpenBlacklist
 
 Official client for the OpenBlacklist API.
