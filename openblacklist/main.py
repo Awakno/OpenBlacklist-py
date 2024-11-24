@@ -1,7 +1,7 @@
+import aiohttp
 from fastapi import Body, FastAPI
 import uvicorn
 from typing import Optional, Dict, List, Callable
-import aiohttp
 from .method.Model import UserBlacklist, User, Reason, UserBlacklistWebhook
 
 class OpenBlacklistClient:
@@ -37,8 +37,11 @@ class OpenBlacklistClient:
             async with session.get(
                 self.url + f"/user/{user_id}", headers={"Authorization": self.api_key}
             ) as resp:
-                return UserBlacklist(**await resp.json())
-
+                data = await resp.json()
+                if data.get("isBlacklisted"):
+                    return UserBlacklist(**data)
+                else:
+                    return UserBlacklist(isBlacklisted=False, user=User(id=user_id, username="",blacklisted_reasons=Reason(fr_fr="", en_gb="", es_sp="")))
     async def handle_webhook(self, data: dict):
         """
         Handles data received via webhook and triggers specific events.
