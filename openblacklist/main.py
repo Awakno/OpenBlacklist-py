@@ -18,13 +18,11 @@ class OpenBlacklistClient:
 
     async def check_user(self, user_id: int) -> UserBlacklist:
         """Vérifie si un utilisateur est blacklisté."""
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(raise_for_status=True) as session:
             async with session.get(
-            f"{self.url}/user/{user_id}",
-            headers={"Authorization": f"{self.api_key}"}
-            ) as response:
-                response.raise_for_status()
-                data = await response.json()
+                self.url + f"/user/{user_id}", headers={"Authorization": self.api_key}
+            ) as resp:
+                return await resp.json()
         return UserBlacklist(**data)
 
     async def handle_webhook(self, data: dict):
