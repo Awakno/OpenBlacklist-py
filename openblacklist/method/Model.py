@@ -1,7 +1,5 @@
 import pydantic
 
-
-
 class Reason(pydantic.BaseModel):
     fr_fr: str
     en_gb: str
