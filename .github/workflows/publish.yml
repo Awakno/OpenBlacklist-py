@@ -12,7 +12,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
+    environment: production
     if: github.repository_owner == 'Awakno'
     steps:
     - uses: actions/checkout@v4
