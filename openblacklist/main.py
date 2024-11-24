@@ -2,7 +2,7 @@ from fastapi import Body, FastAPI
 import uvicorn
 from typing import Optional, Dict, List, Callable
 import aiohttp
-from method.Model import UserBlacklist, User, Reason, UserBlacklistWebhook
+from .method.Model import UserBlacklist, User, Reason, UserBlacklistWebhook
 
 class OpenBlacklistClient:
     def __init__(self, api_key: str, url='https://openbl.clarty.org/api/v1/', webhook_url: Optional[str] = None):
