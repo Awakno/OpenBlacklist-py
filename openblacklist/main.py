@@ -21,7 +21,7 @@ class OpenBlacklistClient:
         async with aiohttp.ClientSession() as session:
             async with session.get(
             f"{self.url}/user/{user_id}",
-            headers={"Authorization": f"Bearer {self.api_key}"}
+            headers={"Authorization": f"{self.api_key}"}
             ) as response:
                 response.raise_for_status()
                 data = await response.json()
