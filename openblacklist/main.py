@@ -1,8 +1,6 @@
-import aiohttp
-from fastapi import Body, FastAPI
-import uvicorn
 from typing import Optional, Dict, List, Callable
 from .method.Model import UserBlacklist, User, Reason, UserBlacklistWebhook
+import aiohttp
 
 class BlacklistClient:
     def __init__(self, api_key: str=None, url='https://openbl.clarty.org/api/v1/', webhook_url: Optional[str] = None,webhook_pass: str=None):
@@ -20,7 +18,7 @@ class BlacklistClient:
         self.webhook_url = webhook_url
         self.webhook_pass = webhook_pass
         self.event_handlers: Dict[str, List[Callable]] = {}
-        self.app = FastAPI()
+        self.app = None
 
         if webhook_url:
             self._setup_webhook_endpoint()
@@ -46,6 +44,7 @@ class BlacklistClient:
                     return UserBlacklist(**data)
                 else:
                     return UserBlacklist(isBlacklisted=False, user=User(id=user_id, username="",blacklisted_reasons=Reason(fr_fr="", en_gb="", es_sp="")))
+
     async def _handle_webhook(self, data: dict):
         """
         Handles data received via webhook and triggers specific events.
@@ -91,6 +90,10 @@ class BlacklistClient:
         """
         Adds a webhook endpoint to the FastAPI application.
         """
+        from fastapi import Body, FastAPI
+
+        self.app = FastAPI()
+
         @self.app.post(f"/{self.webhook_url}")
         async def webhook_listener(data: dict = Body(...)):
             await self._handle_webhook(data)
@@ -104,4 +107,5 @@ class BlacklistClient:
             host (str, optional): The host to bind to. Defaults to "0.0.0.0".
             port (int, optional): The port to bind to. Defaults to 5000.
         """
+        import uvicorn
         uvicorn.run(self.app, host=host, port=port, log_config=None)
