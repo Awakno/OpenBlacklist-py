@@ -20,7 +20,7 @@ poetry add openblacklist
 
 Or
 
-````sh
+```sh
 pip install openblacklist
 ```
 
